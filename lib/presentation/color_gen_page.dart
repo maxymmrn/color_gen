@@ -15,7 +15,6 @@ class _ColorGenPageState extends State<ColorGenPage> {
   static const _luminanceBreakPoint = 0.5;
   static const _alpha = 0xFF000000;
   static const _maxRgb = 0x00FFFFFF;
-  static const _elevation = 4.0;
   static const _fontSize = 40.0;
 
   final _rand = Random(42);
@@ -36,18 +35,11 @@ class _ColorGenPageState extends State<ColorGenPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: _color,
-        body: Center(
-          child: TextButton(
-            onPressed: () => setState(_generateColor),
-            style: TextButton.styleFrom(
-              elevation: _elevation,
-              padding: const EdgeInsets.all(24),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-            ),
+        body: InkWell(
+          onTap: () => setState(_generateColor),
+          child: Center(
             child: Text(
-              'Gen',
+              'Hey there',
               style: TextStyle(color: _textColor, fontSize: _fontSize),
             ),
           ),
