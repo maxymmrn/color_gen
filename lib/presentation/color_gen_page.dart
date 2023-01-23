@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+/// Page for color generation
 class ColorGenPage extends StatefulWidget {
+  /// Constructor
   const ColorGenPage({super.key});
 
   @override
@@ -10,8 +12,18 @@ class ColorGenPage extends StatefulWidget {
 }
 
 class _ColorGenPageState extends State<ColorGenPage> {
+  static const _luminanceBreakPoint = 0.5;
+  static const _alpha = 0xFF000000;
+  static const _maxRgb = 0x00FFFFFF;
+  static const _elevation = 4.0;
+  static const _fontSize = 40.0;
+
   final _rand = Random(42);
-  late Color _color;
+  var _color = Colors.black;
+
+  Color get _textColor => _color.computeLuminance() < _luminanceBreakPoint
+      ? Colors.white
+      : Colors.black;
 
   @override
   void initState() {
@@ -19,7 +31,7 @@ class _ColorGenPageState extends State<ColorGenPage> {
     _generateColor();
   }
 
-  void _generateColor() => _color = Color(0xFF000000 | _rand.nextInt(0xFFFFFF));
+  void _generateColor() => _color = Color(_alpha | _rand.nextInt(_maxRgb));
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -28,7 +40,7 @@ class _ColorGenPageState extends State<ColorGenPage> {
           child: TextButton(
             onPressed: () => setState(_generateColor),
             style: TextButton.styleFrom(
-              elevation: 4,
+              elevation: _elevation,
               padding: const EdgeInsets.all(24),
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -36,12 +48,9 @@ class _ColorGenPageState extends State<ColorGenPage> {
             ),
             child: Text(
               'Gen',
-              style: TextStyle(color: _textColor, fontSize: 40),
+              style: TextStyle(color: _textColor, fontSize: _fontSize),
             ),
           ),
         ),
       );
-
-  Color get _textColor =>
-      _color.computeLuminance() < 0.5 ? Colors.white : Colors.black;
 }

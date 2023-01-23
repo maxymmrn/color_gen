@@ -1,8 +1,10 @@
+import 'package:color_gen/presentation/color_gen_page.dart';
 import 'package:flutter/material.dart';
 
-import 'color_gen_page.dart';
-
+/// Color Gen Application class
 class App extends StatelessWidget {
+
+  /// Constructor
   const App({super.key});
 
   @override
